@@ -1,20 +1,23 @@
+import os
+import sys
 import logging
-import os , sys
-from datetime import datetime
 
-LOG_FILE=f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
+log_dir = "logs"
+logging_str = "[%(asctime)s: %(levelname)s: %(module)s: %(message)s]"
 
-logs_path=os.path.join(os.getcwd(),"logs",LOG_FILE)
-os.makedirs(logs_path,exist_ok=True)
+log_filepath = os.path.join(log_dir , "continuous_logs.log")
 
-LOG_FILE_PATH=os.path.join(logs_path,LOG_FILE)
+os.makedirs(log_dir , exist_ok=True)
+
 
 logging.basicConfig(
-    filename=LOG_FILE_PATH,
-    format="[ %(asctime)s ] %(lineno)d %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO,
+    level=logging.INFO , 
+    format=logging_str , 
+
+    handlers=[
+        logging.FileHandler(log_filepath) , 
+        logging.StreamHandler(sys.stdout)
+    ]
 )
 
-logger = logging.getLogger("cnnClassifierLogger")
-
-
+logger = logging.getLogger("cnnClassifier")
