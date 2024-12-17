@@ -1,4 +1,4 @@
-from src.cnnClassifier.logger import logging
+from src.cnnClassifier.logging.logger import logging
 import os , sys
 from box.exceptions import BoxValueError
 import yaml
